@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#202c28">
+<title>拾页 SHIYE</title>
+<style>
+:root{--bg:#f3f5f2;--paper:#fff;--ink:#202522;--muted:#7b827d;--line:#d9ddd8;--deep:#202c28;--seal:#8c4b40;--soft:#e1e8e3}
+[data-theme=dark]{--bg:#111715;--paper:#19201d;--ink:#f0f2ee;--muted:#9da7a1;--line:#303a35;--deep:#0b0f0e;--seal:#d08b7d;--soft:#28342f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:720px;margin:auto;min-height:100vh;padding-bottom:82px}
+main{padding:20px}.kicker{font-size:9px;letter-spacing:2px;color:var(--seal);margin:6px 0 8px}.title{font-size:28px;margin-bottom:18px}.en{font-size:10px;color:var(--muted);letter-spacing:1px}
+.stats,.card,.book,.note,.setting,.review{background:var(--paper);border:1px solid var(--line);border-radius:15px}.stats{display:flex;justify-content:space-between;padding:14px;margin-bottom:12px;font-size:13px}
+.hero{background:var(--deep);border-radius:20px;padding:18px;color:#f0f2ee}.hero .kicker{color:var(--seal)}.hero h2{font-size:21px;margin:7px 0}.hero p{font-size:11px;color:#aeb8b2;line-height:1.6}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}.action{background:transparent;color:#f4f2ea;border:1px solid #61716b;border-radius:9px;padding:10px;font-size:11px}
+.review{display:flex;justify-content:space-between;align-items:center;padding:14px;margin-top:12px;border-color:var(--seal)}.review strong{font-size:13px}
+.photo{margin-top:12px;padding:10px}.photo img{width:100%;max-height:360px;object-fit:cover;border-radius:10px}.between{display:flex;justify-content:space-between;align-items:center}.muted{color:var(--muted);font-size:10px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{background:var(--paper);border:1px solid var(--line);border-radius:9px;text-align:center;padding:10px 0;font-size:12px}.day.on{background:var(--soft);border-color:var(--seal);color:var(--seal)}
+.add{display:flex;gap:8px;margin-bottom:12px}.input,.textarea{width:100%;background:var(--paper);border:1px solid var(--line);border-radius:11px;color:var(--ink);padding:12px;outline:none}.add .input{flex:1}.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:11px;padding:10px 16px}.primary{background:var(--deep);color:#f4f2ea;border-color:var(--deep)}
+.book{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:9px}.cover{width:45px;height:62px;border-radius:4px;background:#33423b;color:#f4f2ea;display:grid;place-items:center;font-size:9px}.book-title{flex:1;font-size:13px}.arrow{font-size:24px;color:var(--muted)}
+.detail{padding:16px}.progress{height:8px;background:var(--soft);border-radius:10px;overflow:hidden;margin:12px 0}.fill{height:100%;background:var(--seal)}
+.row{display:flex;gap:7px;flex-wrap:wrap}.textarea{height:190px;resize:vertical;line-height:1.6}.tags{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 15px}.tag{padding:7px 10px;border:1px solid var(--line);background:var(--paper);border-radius:99px;font-size:12px}.tag.on{border-color:var(--seal);background:var(--soft)}
+.note{padding:13px;margin-bottom:9px}.note-text{font-size:13px;line-height:1.7}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{padding:14px;text-align:center}.num{font-size:21px}.avatar{width:54px;height:54px;border-radius:50%;background:var(--soft);border:1px solid var(--seal);display:grid;place-items:center;color:var(--seal);font-size:22px}.profile{display:flex;gap:12px;align-items:center;padding:16px}.setting{display:flex;justify-content:space-between;align-items:center;padding:15px;margin-bottom:9px}.nav{position:fixed;bottom:0;left:0;right:0;height:72px;background:var(--paper);border-top:1px solid var(--line);display:flex;z-index:20}.nav button{flex:1;border:0;background:none;color:var(--muted)}.nav .active{color:var(--seal)}.nav b{display:block;font-size:17px}.nav small{font-size:7px;letter-spacing:1px}.empty{text-align:center;padding:28px;color:var(--muted);font-size:12px}
+.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;z-index:30}.modal.show{display:flex}.sheet{width:100%;max-width:720px;margin:auto;background:var(--paper);border-radius:20px 20px 0 0;padding:20px;max-height:85vh;overflow:auto}.close{float:right;border:0;background:none;font-size:24px;color:var(--muted)}
+@media(min-width:721px){.nav{max-width:720px;margin:auto;left:50%;transform:translateX(-50%);border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="app">
+<main id="main"></main>
+<nav class="nav">
+<button data-tab="0"><b>阅</b><small>READ</small></button>
+<button data-tab="1"><b>书</b><small>LIBRARY</small></button>
+<button data-tab="2"><b>思</b><small>THOUGHT</small></button>
+<button data-tab="3"><b>我</b><small>ME</small></button>
+</nav>
+</div>
+<div id="modal" class="modal"></div>
+<input id="camera" type="file" accept="image/*" capture="environment" style="display:none">
+<script>
+const KEY="shiye_web_v1";
+let state=JSON.parse(localStorage.getItem(KEY)||"null")||{tab:0,theme:"light",streak:12,books:[],pages:[],notes:[]};
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const today=()=>new Date().toISOString().slice(0,10);
+function addDays(date,n){let d=new Date(date);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function fmt(x){return x?.replaceAll("-",".")||""}
+function nav(){document.querySelectorAll(".nav button").forEach((b,i)=>b.classList.toggle("active",i===state.tab))}
+function shell(k,t,en){return `<div class="kicker">${k}</div><div class="title">${t} <span class="en">${en}</span></div>`}
+function render(){
+ document.documentElement.dataset.theme=state.theme==="dark"?"dark":"light";nav();
+ const due=state.notes.filter(n=>n.review<=today()&&!n.done);
+ let h="";
+ if(state.tab===0)h=read(due); if(state.tab===1)h=library(); if(state.tab===2)h=thought(due); if(state.tab===3)h=me();
+ document.getElementById("main").innerHTML=h; bind();
+}
+function read(due){
+ const last=state.pages[0];
+ return shell("TODAY · "+fmt(today()),"阅","READ")+`
+ <div class="stats"><span>连续阅读 ${state.streak} 天</span><span>留下 ${state.pages.length} 页</span></div>
+ <section class="hero"><div class="kicker">TODAY · 今天</div><h2>今天读到什么？</h2><p>不用写很多，留下一个值得回看的瞬间就够了。</p>
+ <div class="actions"><button class="action" data-act="photo">▧ 截一页</button><button class="action" data-act="thought">✎ 写感想</button><button class="action" data-act="book">＋ 记一本</button></div></section>
+ ${due.length?`<div class="review" data-act="thought"><div><div class="kicker">30-DAY REVIEW · 回看</div><strong>有 ${due.length} 条笔记值得今天重看</strong></div><span>›</span></div>`:""}
+ ${last?`<div class="photo card"><img src="${last.uri}"><div class="between"><span class="muted">最近留下 · ${fmt(last.date)}</span><button class="btn" data-act="remove-page">清除</button></div></div>`:""}
+ <div class="kicker" style="margin-top:24px">READING CALENDAR</div>
+ <div class="calendar">${Array.from({length:30},(_,i)=>`<div class="day ${i<state.streak?"on":""}">${i+1}</div>`).join("")}</div>`;
+}
+function library(){
+ return shell("MY READING","书","LIBRARY")+`
+ <div class="add"><input class="input" id="bookInput" placeholder="输入一本书"><button class="btn primary" data-act="add-book">添加</button></div>
+ ${state.books.length?state.books.map(b=>`<div class="book" data-act="open-book" data-id="${b.id}"><div class="cover">拾页</div><div class="book-title">${esc(b.title)}<div class="muted">${b.finished?"已读完":"阅读中 · "+b.progress+"%"}</div></div><span class="arrow">›</span></div>`).join(""):`<div class="empty">还没有书。先记下一本。</div>`}`;
+}
+function thought(due){
+ return shell("THOUGHT","思","THOUGHT")+
+ (due.length?`<section class="review" style="display:block">${due.map(n=>`<div class="note"><div class="kicker">30-DAY REVIEW</div><div class="note-text">${esc(n.text)}</div><div class="between"><span class="muted">${esc(n.tag)} · ${fmt(n.date)}</span><button class="btn" data-act="review" data-id="${n.id}">已回看</button></div></div>`).join("")}</section>`:"")+
+ `<textarea id="noteText" class="textarea" placeholder="这一页为什么值得留下？"></textarea>
+ <div class="kicker">小戳 · TAG</div><div class="tags">${["值得实践","醍醐灌顶","反常识","待验证"].map(t=>`<button class="tag" data-tag="${t}">${t}</button>`).join("")}</div>
+ <button class="btn primary" style="width:100%" data-act="save-note">保存，并在 30 天后回来</button>
+ <div class="kicker" style="margin-top:24px">RECENT NOTES</div>
+ ${state.notes.slice(0,8).map(n=>`<div class="note"><div class="note-text">${esc(n.text)}</div><div class="muted">${esc(n.tag)} · ${fmt(n.date)} · 下次回看 ${fmt(n.review)}</div></div>`).join("")}`;
+}
+function me(){
+ const rank=state.streak>=20?"执卷人 · Scholar":state.streak>=7?"七日初读者 · Reader":"初入书院 · Novice";
+ return shell("YOUR GROWTH","我","PROFILE")+`
+ <div class="card profile"><div class="avatar">${state.streak>=20?"♜":state.streak>=7?"◈":"○"}</div><div><div>${rank}</div><div class="muted">连续阅读 ${state.streak} 天 · ${Math.max(0,20-state.streak)} 天解锁执卷人</div></div></div>
+ <div class="metrics" style="margin:15px 0"><div class="card metric"><div class="num">${state.books.length}</div><div class="muted">藏书</div></div><div class="card metric"><div class="num">${state.pages.length}</div><div class="muted">书页</div></div><div class="card metric"><div class="num">${state.notes.length}</div><div class="muted">笔记</div></div></div>
+ <div class="kicker">STUDY MODE</div><div class="setting"><div>夜读模式<div class="muted">晚上减少刺眼的浅色背景</div></div><button class="btn" data-act="theme">${state.theme==="dark"?"ON":"OFF"}</button></div>
+ <div class="kicker">BADGES</div>
+ ${[["◈","七日初读者","连续阅读 7 天解锁",state.streak>=7],["♜","执卷人","连续阅读 20 天解锁",state.streak>=20],["✦","百页藏书","留下 100 页解锁",state.pages.length>=100]].map(x=>`<div class="book" style="opacity:${x[3]?1:.45}"><span style="font-size:28px;color:var(--seal)">${x[0]}</span><div><div>${x[1]}</div><div class="muted">${x[2]}</div></div></div>`).join("")}
+ <div class="kicker" style="margin-top:24px">DATA</div><button class="btn" data-act="reset" style="width:100%">清空本机数据</button>`;
+}
+function bind(){
+ document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{state.tab=+b.dataset.tab;save();render()});
+ document.querySelectorAll("[data-tag]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-tag]").forEach(x=>x.classList.remove("on"));b.classList.add("on");b.dataset.selected="1"});
+ document.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>act(b.dataset.act,b.dataset.id));
+}
+function act(a,id){
+ if(a==="thought"){state.tab=2;save();render();return}
+ if(a==="book"){state.tab=1;save();render();return}
+ if(a==="photo"){document.getElementById("camera").click();return}
+ if(a==="remove-page"){state.pages.shift();save();render();return}
+ if(a==="theme"){state.theme=state.theme==="dark"?"light":"dark";save();render();return}
+ if(a==="add-book"){let i=document.getElementById("bookInput"),t=i.value.trim();if(!t)return;state.books.unshift({id:Date.now()+"",title:t,progress:0,finished:false});save();render();return}
+ if(a==="open-book"){openBook(id);return}
+ if(a==="save-note"){let t=document.getElementById("noteText").value.trim();if(!t){alert("先写下一句话。");return}let tag=document.querySelector("[data-tag].on")?.dataset.tag||"随手记";state.notes.unshift({id:Date.now()+"",text:t,tag,date:today(),review:addDays(today(),30),done:false});save();render();alert("已保存，30 天后会回来提醒你回看。");return}
+ if(a==="review"){let n=state.notes.find(x=>x.id===id);if(n){n.done=true;n.review=addDays(today(),30);save();render()}return}
+ if(a==="reset"){if(confirm("确定清空拾页的全部本机记录？")){state={tab:0,theme:state.theme,streak:12,books:[],pages:[],notes:[]};save();render()}return}
+}
+function openBook(id){
+ let b=state.books.find(x=>x.id===id); if(!b)return;
+ const m=document.getElementById("modal");
+ m.innerHTML=`<div class="sheet"><button class="close" data-close>×</button><div class="kicker">BOOK DETAIL</div><h2>${esc(b.title)}</h2><div class="muted">${b.finished?"已读完":"阅读中"} · ${b.progress}%</div><div class="progress"><div class="fill" style="width:${b.progress}%"></div></div><div class="row">${[10,25,50].map(n=>`<button class="btn" data-progress="${n}">＋${n}%</button>`).join("")}<button class="btn" data-progress="100">读完</button></div><div class="row" style="margin-top:15px"><button class="btn" data-delete>删除</button></div></div>`;
+ m.classList.add("show");
+ m.querySelector("[data-close]").onclick=()=>m.classList.remove("show");
+ m.querySelector("[data-delete]").onclick=()=>{state.books=state.books.filter(x=>x.id!==id);save();m.classList.remove("show");render()};
+ m.querySelectorAll("[data-progress]").forEach(x=>x.onclick=()=>{b.progress=Math.min(100,b.progress+(+x.dataset.progress));if(b.progress>=100)b.finished=true;save();m.classList.remove("show");render()});
+}
+document.getElementById("camera").onchange=e=>{
+ const f=e.target.files?.[0]; if(!f)return; const r=new FileReader();
+ r.onload=()=>{state.pages.unshift({id:Date.now()+"",uri:r.result,date:today()});save();render();alert("已留下这一页。");e.target.value=""}; r.readAsDataURL(f);
+};
+render();
+</script>
+</body>
+</html>
